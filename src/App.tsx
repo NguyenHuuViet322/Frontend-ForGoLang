@@ -7,6 +7,7 @@ import TodoList from './components/todolistgroup';
 import warning from './components/warning';
 import Warning from './components/warning';
 import CreateForm from './components/createform';
+import UpdateForm from './components/updateform';
 
 function App() {
   return (
@@ -17,9 +18,9 @@ function App() {
           <Route index element={<Warning></Warning>}></Route>
           <Route path=":id" element={<TodoList></TodoList>}></Route>
         </Route>
-        <Route path="/create">
+        <Route path="/update">
           <Route index element={<Warning></Warning>}></Route>
-          <Route path=":idUser" element={<CreateForm></CreateForm>}></Route>
+          <Route path=":id" element={<UpdateForm></UpdateForm>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

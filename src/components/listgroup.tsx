@@ -1,3 +1,4 @@
+import { Avatar, List } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -16,15 +17,23 @@ function ListGroup() {
   return (
     <div>
         <h1>Chọn tài khoản</h1>
-        <ul className="list-group">
-            {
-                accounts.map((acc) => {
-                    return(
-                        <Link key={acc.Id} to={`/todo/${acc.Id}`}><li className="list-group-item">{acc.Name} - {acc.Email}</li></Link>
-                    )
-                } )
-            }
-        </ul>
+        <List
+          className="list"
+          itemLayout="horizontal"
+          dataSource={accounts}
+          renderItem={(item, index) => (
+            <List.Item>
+
+                    <List.Item.Meta className="listitem"
+                    avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
+                    title={<a href={`/todo/${item.Id}`}>{item.Name}</a>}
+                    description={item.Email}
+                  />
+                 
+              
+            </List.Item>
+          )}
+        />
     </div>
   );
 }

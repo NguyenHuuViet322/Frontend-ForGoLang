@@ -1,22 +1,37 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 import { useParams } from "react-router-dom";
 
-function CreateForm({idUser}) {
+function UpdateForm() {
+    let {id} = useParams()
+    const [data, setData] = useState("") 
     const [title, setTitle] = useState() 
     const [content, setcontent] = useState('') 
-    const [remindTime, setRemindTime] = useState('') 
+    const [idUser, setIdUser] = useState('') 
+
+    useEffect(() => {
+        fetch("http://localhost:8080/getTodo/"+id) 
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setData(data);
+            setTitle(data.title);
+            setcontent(data.content);
+          });
+      }, []); 
+    
 
     function submit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        fetch('http://localhost:8080/createTodo', {
+        fetch('http://localhost:8080/updateTodo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(
                 {
+                    "Id": Number(id),
                     "Title": title,
                     "Content": content,
                     "IdUser": Number(idUser),
@@ -29,7 +44,6 @@ function CreateForm({idUser}) {
     return (
         <form onSubmit={(e) => submit(e)}>
             <div className="form-group">
-                <input type="hidden" value={idUser}/>
                 <label>
                     Tiêu đề</label>
                     <input onChange={(e) => setTitle(e.target.value)} type="text" id="Title" className="form-control"/>
@@ -45,4 +59,4 @@ function CreateForm({idUser}) {
       );
 }
 
-export default CreateForm;
+export default UpdateForm;

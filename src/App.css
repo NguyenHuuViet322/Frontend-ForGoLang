@@ -11,7 +11,13 @@ h1 {
     float:right;
 }
 
-.form-group {
+.list {
     padding: 3em;
-    padding-top:1em;
+    padding-top: 1em;
+}
+
+.listitem:hover {
+    background-color: rgb(198, 218, 218);
+    padding-left: 2em;
+    padding-right: 2em;
 }
